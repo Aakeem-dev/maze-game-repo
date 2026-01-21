@@ -1,6 +1,7 @@
 
 #allocate gameboard
 
+
 rooms = {
     'default' : { 'health': 0, 'message': 'This room is empty, proceed'},
     (0,3): { 'health': 0, 'message': "You've found a hint scroll! it say's... Go 'west' for 1 room and 'south' for 3 rooms to safely advance.", 'item': 'hint scroll'},
@@ -17,8 +18,8 @@ rooms = {
     (5,0): { 'health': 20, 'message': "You've found a potion! +20 health", 'item': 'potion'},
     (5,5): { 'health': 0, 'message': "Congrat's you've found the exit!"}
 }
-
-player = {'x' : 0, 'y' : 0, 'status': {'health' : 100, 'inventory' : []}}
+def new_player():
+    return {'x' : 0, 'y' : 0, 'status': {'health' : 100, 'inventory' : []}}
 
     
 def valid_direction(direction):
@@ -64,8 +65,9 @@ def apply_room_logic(rooms, player):
     player['status']['health'] = max(0, min(100, player['status']['health'] + room_health))
     
         
-def play_game(rooms, player):
+def play_game(rooms):
     
+    player = new_player()
     print("You are in a maze of rooms. The first room is in the north west corner of the maze [room (0,0)]. You must make it to the last room in the south east corner of the maze alive to escape [room (5,5)]. Valid moves are ['A'/'a' = west, 'D'/'d' = east, W'/'w' north, and S'/'s' = south]. Input 'status' to see your status, you can also input 'quit' at any time to end the game. Good luck!\n")
     
     while (player['x'] != 5 or player['y'] != 5) and player['status']['health'] > 0:
@@ -90,11 +92,18 @@ def play_game(rooms, player):
             print('---YOU DIED! GAME OVER---')
             break
         
-            
-    print('press run to play again.')
     return
+def main():
 
-play_game(rooms, player)
-    
-#print(game_room)
+    while True:
+        play_game(rooms)
+        replay = input("Do you want to replay the game? (type yes or no): ").lower()
+        while replay != 'yes' and replay != 'no':
+            replay = input("your input was invalid. Enter yes or no: ").lower()
+        if replay == 'no':
+            print ("You chose to end the game. see you!")
+            break 
+if __name__ == "__main__":
+    main()
+
 
