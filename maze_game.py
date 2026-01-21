@@ -1,7 +1,6 @@
 
 #allocate gameboard
 
-
 rooms = {
     'default' : { 'health': 0, 'message': 'This room is empty, proceed'},
     (0,3): { 'health': 0, 'message': "You've found a hint scroll! it say's... Go 'west' for 1 room and 'south' for 3 rooms to safely advance.", 'item': 'hint scroll'},
@@ -18,10 +17,10 @@ rooms = {
     (5,0): { 'health': 20, 'message': "You've found a potion! +20 health", 'item': 'potion'},
     (5,5): { 'health': 0, 'message': "Congrat's you've found the exit!"}
 }
+
 def new_player():
     return {'x' : 0, 'y' : 0, 'status': {'health' : 100, 'inventory' : []}}
 
-    
 def valid_direction(direction):
     valid_moves = ['d', 'a','w','s','quit', 'status']
     if direction not in valid_moves:
@@ -93,6 +92,7 @@ def play_game(rooms):
             break
         
     return
+
 def main():
 
     while True:
@@ -103,6 +103,7 @@ def main():
         if replay == 'no':
             print ("You chose to end the game. see you!")
             break 
+
 if __name__ == "__main__":
     main()
 
